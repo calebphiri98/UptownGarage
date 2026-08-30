@@ -1,1 +1,7 @@
-gitdir: C:/Users/Rexious Huka/.copilot/repos/AttachTrack/.git/worktrees/calebphiri98-jubilant-bassoon
+﻿node_modules/
+.env
+.env.local
+dist/
+build/
+*.log
+.DS_Store
