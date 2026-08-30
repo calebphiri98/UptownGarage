@@ -20,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 session_set_cookie_params([
     'lifetime' => 60 * 60 * 8, // 8 hour shift
     'path' => '/',
-    'samesite' => 'Lax',
+    'samesite' => 'None',
+    'secure' => true,
 ]);
 session_start();
 
