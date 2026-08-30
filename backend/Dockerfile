@@ -2,7 +2,8 @@ FROM php:8.2-apache
 
 RUN a2enmod rewrite headers
 
-RUN docker-php-ext-install pdo pdo_mysql mysqli
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql
 
 COPY . /var/www/html/
 
