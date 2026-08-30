@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom'
+﻿import { NavLink, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 
 export default function PublicLayout({ children }) {
@@ -18,7 +18,6 @@ export default function PublicLayout({ children }) {
           <NavLink to="/" end className={({ isActive }) => 'topnav-link' + (isActive ? ' active' : '')}>Home</NavLink>
           <NavLink to="/shop" className={({ isActive }) => 'topnav-link' + (isActive ? ' active' : '')}>Shop Parts</NavLink>
           <NavLink to="/book" className={({ isActive }) => 'topnav-link' + (isActive ? ' active' : '')}>Book Service</NavLink>
-          <NavLink to="/admin" className={({ isActive }) => 'topnav-link' + (isActive ? ' active' : '')}>Workshop Login</NavLink>
         </nav>
         <div className="topbar-account">
           {customer ? (
@@ -36,7 +35,7 @@ export default function PublicLayout({ children }) {
       </header>
       <main className="public-content">{children}</main>
       <footer className="public-footer">
-        <span>© {new Date().getFullYear()} Uptown Garage — Where every job gets a job card.</span>
+        <span>&copy; {new Date().getFullYear()} Uptown Garage - Where every job gets a job card.</span>
       </footer>
     </div>
   )

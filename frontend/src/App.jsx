@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+﻿import { Routes, Route, Navigate } from 'react-router-dom'
 import PublicLayout from './layouts/PublicLayout.jsx'
 import AdminLayout from './layouts/AdminLayout.jsx'
 import RequireStaff from './components/RequireStaff.jsx'
@@ -9,7 +9,6 @@ import Login from './pages/public/Login.jsx'
 import Register from './pages/public/Register.jsx'
 import Book from './pages/public/Book.jsx'
 
-import AdminLogin from './pages/admin/AdminLogin.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Customers from './pages/Customers.jsx'
 import Vehicles from './pages/Vehicles.jsx'
@@ -27,15 +26,13 @@ function Protected({ children }) {
 export default function App() {
   return (
     <Routes>
-      {/* Public storefront */}
       <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
       <Route path="/shop" element={<PublicLayout><Shop /></PublicLayout>} />
       <Route path="/book" element={<PublicLayout><Book /></PublicLayout>} />
       <Route path="/login" element={<PublicLayout><Login /></PublicLayout>} />
       <Route path="/register" element={<PublicLayout><Register /></PublicLayout>} />
+      <Route path="/admin/login" element={<Navigate to="/login" replace />} />
 
-      {/* Workshop / admin console — gated */}
-      <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin" element={<Protected><Dashboard /></Protected>} />
       <Route path="/admin/customers" element={<Protected><Customers /></Protected>} />
       <Route path="/admin/vehicles" element={<Protected><Vehicles /></Protected>} />

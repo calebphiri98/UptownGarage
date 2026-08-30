@@ -1,11 +1,14 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+﻿import { useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Auth } from '../../api/client.js'
 import { useAuth } from '../../context/AuthContext.jsx'
+import { useStaffAuth } from '../../context/StaffAuthContext.jsx'
 
 export default function Login() {
-  const { login } = useAuth()
+  const { login: loginCustomer } = useAuth()
+  const { setStaff } = useStaffAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
 
@@ -14,8 +17,13 @@ export default function Login() {
     setError('')
     try {
       const res = await Auth.login(form.email, form.password)
-      login(res.customer)
-      navigate('/')
+      if (res.type === 'staff') {
+        setStaff(res.user)
+        navigate(location.state?.from || '/admin', { replace: true })
+      } else {
+        loginCustomer(res.user)
+        navigate('/')
+      }
     } catch (e) { setError(e.message) }
   }
 
@@ -23,7 +31,7 @@ export default function Login() {
     <section className="section auth-section">
       <div className="auth-card">
         <h1>Log in</h1>
-        <p className="muted">Access your bookings, orders and job status.</p>
+        <p className="muted">Access your account, bookings, orders and job status.</p>
         {error && <div className="error-msg">{error}</div>}
         <form onSubmit={submit}>
           <div className="field"><label>Email</label><input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></div>

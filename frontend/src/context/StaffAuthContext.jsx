@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+﻿import { createContext, useContext, useEffect, useState } from 'react'
 import { StaffAuth } from '../api/client.js'
 
 const StaffAuthContext = createContext(null)
@@ -7,8 +7,12 @@ export function StaffAuthProvider({ children }) {
   const [staff, setStaff] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  const refresh = () => {
+    return StaffAuth.me().then((res) => setStaff(res.staff)).catch(() => setStaff(null))
+  }
+
   useEffect(() => {
-    StaffAuth.me().then((res) => setStaff(res.staff)).catch(() => setStaff(null)).finally(() => setLoading(false))
+    refresh().finally(() => setLoading(false))
   }, [])
 
   const login = async (email, password) => {
@@ -23,7 +27,7 @@ export function StaffAuthProvider({ children }) {
   }
 
   return (
-    <StaffAuthContext.Provider value={{ staff, loading, login, logout }}>
+    <StaffAuthContext.Provider value={{ staff, loading, login, logout, refresh, setStaff }}>
       {children}
     </StaffAuthContext.Provider>
   )
